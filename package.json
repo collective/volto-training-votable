@@ -1,7 +1,7 @@
 {
   "name": "@plone-collective/volto-training-votable",
   "version": "0.1.0",
-  "description": "volto-training-votable: Volto add-on",
+  "description": "Mastering Plone Development training: Volto add-on for the votable behavior",
   "main": "src/index.js",
   "license": "MIT",
   "keywords": [
