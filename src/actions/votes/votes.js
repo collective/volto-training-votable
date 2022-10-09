@@ -3,7 +3,7 @@
  * @module actions/votes/votes
  */
 
-import { GET_VOTES, VOTE } from '../../constants/ActionTypes';
+import { GET_VOTES, VOTE, CLEAR_VOTES } from '../../constants/ActionTypes';
 
 /**
  * Get Votes Information
@@ -37,4 +37,19 @@ export function vote(url, vote) {
       },
     };
   }
+}
+
+/**
+ * Delete votes of an item
+ * @function clearVotes
+ * @returns {Object} Votes action.
+ */
+ export function clearVotes(url) {
+  return {
+    type: CLEAR_VOTES,
+    request: {
+      op: 'del',
+      path: `${url}/@votes`,
+    },
+  };
 }
