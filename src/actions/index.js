@@ -11,6 +11,6 @@
  * };
  */
 
-import { getVotes } from './votes/votes';
+import { getVotes, vote } from './votes/votes';
 
-export { getVotes };
+export { getVotes, vote };

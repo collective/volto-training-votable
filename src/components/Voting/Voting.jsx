@@ -2,9 +2,16 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-import { Header, Label, List, Segment } from 'semantic-ui-react';
+import {
+  Button,
+  Divider,
+  Header,
+  Label,
+  List,
+  Segment,
+} from 'semantic-ui-react';
 
-import { getVotes } from '../../actions';
+import { getVotes, vote } from '../../actions';
 
 const Voting = () => {
   const votes = useSelector((store) => store.votes);
@@ -15,6 +22,12 @@ const Voting = () => {
   React.useEffect(() => {
     dispatch(getVotes(location.pathname));
   }, [dispatch, location]);
+
+  function handleVoteClick(value) {
+    if (location) {
+      dispatch(vote(location.pathname, value));
+    }
+  }
 
   return votes?.loaded && votes?.can_vote ? ( // is store content available? (votable behavior is optional)
     <Segment className="voting">
@@ -37,6 +50,38 @@ const Voting = () => {
             )}
           </Label.Group>
         </p>
+
+        {votes?.can_vote ? (
+          <Divider horizontal section>
+            Vote
+          </Divider>
+        ) : null}
+        {votes?.already_voted ? (
+          <List.Item>
+            <List.Content>
+              <List.Header>
+                You voted for this {content.type_of_talk?.title}.
+              </List.Header>
+              <List.Description>
+                Please see more interesting talks and vote!
+              </List.Description>
+            </List.Content>
+          </List.Item>
+        ) : votes?.can_vote ? (
+          <List.Item>
+            <Button.Group widths="3">
+              <Button color="green" onClick={() => handleVoteClick(1)}>
+                Approve
+              </Button>
+              <Button color="blue" onClick={() => handleVoteClick(0)}>
+                Don't know what to expect
+              </Button>
+              <Button color="orange" onClick={() => handleVoteClick(-1)}>
+                Decline
+              </Button>
+            </Button.Group>
+          </List.Item>
+        ) : null}
       </List>
     </Segment>
   ) : null;

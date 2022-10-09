@@ -3,7 +3,7 @@
  * @module actions/votes/votes
  */
 
-import { GET_VOTES } from '../../constants/ActionTypes';
+import { GET_VOTES, VOTE } from '../../constants/ActionTypes';
 
 /**
  * Get Votes Information
@@ -18,4 +18,23 @@ export function getVotes(url) {
       path: `${url}/@votes`,
     },
   };
+}
+
+/**
+ * Vote
+ * @function vote
+ * @param {Object} rating data.
+ * @returns {Object} Votes action.
+ */
+export function vote(url, vote) {
+  if ([-1, 0, 1].includes(vote)) {
+    return {
+      type: VOTE,
+      request: {
+        op: 'post',
+        path: `${url}/@votes`,
+        data: { rating: vote },
+      },
+    };
+  }
 }

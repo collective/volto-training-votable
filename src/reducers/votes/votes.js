@@ -3,7 +3,7 @@
  * @module reducers/votes/votes
  */
 
-import { GET_VOTES } from '../../constants/ActionTypes';
+import { GET_VOTES, VOTE } from '../../constants/ActionTypes';
 
 const initialState = {
   loaded: false,
@@ -21,6 +21,7 @@ const initialState = {
 export default function votes(state = initialState, action = {}) {
   switch (action.type) {
     case `${GET_VOTES}_PENDING`:
+    case `${VOTE}_PENDING`:
       return {
         ...state,
         error: null,
@@ -35,7 +36,16 @@ export default function votes(state = initialState, action = {}) {
         loaded: true,
         loading: false,
       };
+    case `${VOTE}_SUCCESS`: // TODO ${VOTE}_SUCCESS
+      return {
+        ...state,
+        ...action.result,
+        error: null,
+        loaded: true,
+        loading: false,
+      };
     case `${GET_VOTES}_FAIL`:
+    case `${VOTE}_FAIL`:
       return {
         ...state,
         error: action.error,
