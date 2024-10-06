@@ -44,7 +44,7 @@ export function vote(url, vote) {
  * @function clearVotes
  * @returns {Object} Votes action.
  */
- export function clearVotes(url) {
+export function clearVotes(url) {
   return {
     type: CLEAR_VOTES,
     request: {
